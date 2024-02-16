@@ -1,0 +1,13 @@
+﻿<Window x:Class="lab1_compilator_.WindowAbout"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab1_compilator_"
+        mc:Ignorable="d"
+        Title="О программе" Height="250" Width="300">
+    <Grid>
+        <TextBlock Width="150" Height="50" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Программма написана Плотниковым В.В. и Беловым А.С."/>
+
+    </Grid>
+</Window>

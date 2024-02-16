@@ -1,0 +1,160 @@
+﻿<Window x:Class="lab1_compilator_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab1_compilator_"
+        mc:Ignorable="d"
+        Title="Analaizer" MinHeight="700"  MinWidth="1000" Height="700"  Width="1000" KeyDown="Hotkey" SizeChanged="Window_SizeChanged">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="480*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="400*"/>
+        </Grid.ColumnDefinitions>
+
+        <Menu Grid.Row="0" Grid.ColumnSpan="5" Name="menuMain" >
+            <MenuItem Header="Файл" Name="menuItemFile">
+                <MenuItem Header="Создать" Click="NewFile_Click" Name="menuItemCreate"/>
+                <MenuItem Header="Открыть" Click="OpenFile_Click" Name="menuItemOpen"/>
+                <MenuItem Header="Сохранить" Click="SaveFile_Click" Name="menuItemSave"/>
+                <MenuItem Header="Сохранить как" Click="SaveFileAs_Click" Name="menuItemSaveAs"/>
+                <Separator/>
+                <MenuItem Header="Выход" Click="Exit_Click" Name="menuItemExit"/>
+            </MenuItem>
+            <MenuItem Header="Правка" Name="menuItemEdit">
+                <MenuItem Header="Отменить" Click="Undo_Click" Name="menuItemUndo"/>
+                <MenuItem Header="Повторить" Click="Redo_Click" Name="menuItemRedo"/>
+                <Separator/>
+                <MenuItem Header="Вырезать" Click="Cut_Click" Name="menuItemCut"/>
+                <MenuItem Header="Копировать" Click="Copy_Click" Name="menuItemCopy"/>
+                <MenuItem Header="Вставить" Click="Paste_Click" Name="menuItemPaste"/>
+                <MenuItem Header="Удалить" Click="Delete_Click" Name="menuItemDelete"/>
+                <Separator/>
+                <MenuItem Header="Выделить все" Click="SelectAll_Click" Name="menuItemSelectAll"/>
+            </MenuItem>
+            <MenuItem Header="Текст" Name="menuItemText">
+                <MenuItem Header="Постановка задачи" Click="Task_Click" Name="menuItemTask"/>
+                <MenuItem Header="Грамматика" Click="Grammar_Click" Name="menuItemGrammar"/>
+                <MenuItem Header="Классификация грамматики" Click="Classification_Click" Name="menuItemClassification"/>
+                <MenuItem Header="Метод анализа" Click="Method_Click" Name="menuItemMethod"/>
+                <MenuItem Header="Диагностика и нейтрализация ошибок" Click="Diagnostic_Click" Name="menuItemDiagnostic"/>
+                <MenuItem Header="Тестовый пример" Click="Example_Click" Name="menuItemExample"/>
+                <MenuItem Header="Список литературы" Click="List_Click" Name="menuItemList"/>
+                <MenuItem Header="Исходный код программы" Click="Code_Click" Name="menuItemCode"/>
+            </MenuItem>
+            <MenuItem Header="Пуск" Click="Run_Click" Name="menuItemRun"/>
+            <MenuItem Header="Справка" Name="menuItemHelp">
+                <MenuItem Header="Вызов справки" Click="Help_Click" Name="menuItemCallHelp"/>
+                <MenuItem Header="О программе" Click="About_Click" Name="menuItemAbout"/>
+            </MenuItem>
+            <MenuItem Header="Настройки" Name="menuItemSettings">
+                <MenuItem Header="Язык" Name="menuItemLanguage">
+                    <MenuItem Header="Ru" Click="Language_ClickRu" Name="menuItemLanguageRu"/>
+                    <MenuItem Header="En" Click="Language_ClickEn" Name="menuItemLanguageEn"/>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <ToolBar Grid.Row="1" Grid.ColumnSpan="5">
+        <Button x:Name="btnNew" Click="NewFile_Click" ToolTip="Создать документ">
+                <Image Source="./Images/New.png" Width="20" Height="20" />
+        </Button>
+        <Button x:Name="btnOpen" Click="OpenFile_Click" ToolTip="Открыть документ">
+                <Image Source="./Images/Open.png" Width="20" Height="20" />
+        </Button>
+        <Button x:Name="btnSave" Click="SaveFile_Click" ToolTip="Сохранить изменения">
+                <Image Source="./Images/Save.png" Width="20" Height="20" />
+        </Button>
+        <Separator/>
+        <Button x:Name="btnUndo" Click="Undo_Click" ToolTip="Отменить изменения">
+                <Image Source="./Images/Undo.png" Width="20" Height="20" />
+            </Button>
+        <Button x:Name="btnRedo" Click="Redo_Click" ToolTip="Повторить изменение">
+                <Image Source="./Images/Redo.png" Width="20" Height="20" />
+        </Button>
+        <Separator/>
+        <Button x:Name="btnCopy" Click="Copy_Click" ToolTip="Копировать фрагмент">
+                <Image Source="./Images/Copy.png" Width="20" Height="20" />
+        </Button>
+        <Button x:Name="btnCut" Click="Cut_Click" ToolTip="Вырезать фрагмент">
+                <Image Source="./Images/Cut.png" Width="20" Height="20" />
+        </Button>
+        <Button x:Name="btnPaste" Click="Paste_Click" ToolTip="Вставить фрагмент">
+                <Image Source="./Images/Paste.png" Width="20" Height="20" />
+        </Button>
+        <Separator/>
+        <Button x:Name="btnRun" Click="Run_Click" ToolTip="Запустить анализ">
+                <Image Source="./Images/Run.png" Width="20" Height="20" />
+        </Button>
+        <Separator/>
+        <Button x:Name="btnHelp" Click="Help_Click" ToolTip="Открыть справку">
+                <Image Source="./Images/Help.png" Width="20" Height="20" />
+        </Button>
+        <Button x:Name="btnAbout" Click="About_Click" ToolTip="О программе">
+                <Image Source="./Images/About.png" Width="20" Height="20" />
+        </Button>
+        </ToolBar>
+
+        <StackPanel Grid.ColumnSpan="5" Grid.Row="2" x:Name="FileMenu" HorizontalAlignment="Left" Orientation="Horizontal">
+        </StackPanel>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Frame  Grid.Row="0" Name="wpFrame" NavigationUIVisibility="Hidden">
+            
+            </Frame>
+
+            <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" ResizeDirection="Rows" />
+
+            <!--
+        <TextBox x:Name="txtEditor" IsEnabled="False"  TextChanged="TextChanged_Handler" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+        -->
+        
+        <ListBox Grid.ColumnSpan="5" x:Name="lbxEvents" Grid.Row="2" Margin="0,10,0,0" Width="auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Background="Firebrick">
+                        <!--  
+                        https://dir.by/developer/wpf/width_percentage/?lang=eng
+                        -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="480*"/>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="45*"/>
+                                <ColumnDefinition Width="400*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Background="Red" Text="{Binding Path=Counter}" />
+                        <TextBlock Grid.Column="1" Background="Pink" Text="{Binding Path=Description}"/>
+                        <TextBlock Grid.Column="2" Background="Red" Text="{Binding Path=Counter}" />
+                        <TextBlock Grid.Column="3" Background="Yellow" Text="{Binding Path=Counter}" />
+                        <TextBlock Grid.Column="4" Background="Red" Text="{Binding Path=source}"/>
+                        </Grid>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        </Grid>
+        <StackPanel Grid.ColumnSpan="5" x:Name="ConditionPanel" Grid.Row="4" Background="Gray" Height="20">
+            <TextBlock x:Name="lang"/>
+        </StackPanel>
+    </Grid>
+</Window>
